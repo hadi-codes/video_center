@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:gui/api/api.dart';
 
 abstract class VideosEvent extends Equatable {
@@ -9,6 +10,16 @@ abstract class VideosEvent extends Equatable {
 }
 
 class VideosLoaded extends VideosEvent {}
+
+class VideosAusleihen extends VideosEvent {
+  final int kundenID;
+  final int videoID;
+  VideosAusleihen(
+    this.kundenID,
+    this.videoID,
+  );
+  List<Object> get props => [kundenID, videoID];
+}
 
 class VideoAdded extends VideosEvent {
   final Video video;

@@ -19,7 +19,10 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
         yield* _mapVideoAddedToState(event);
       else if (event is VideoUpdated)
         yield* _mapVideoUpdatedToState(event);
-      else if (event is VideoDeleted) yield* _mapVideoDeletedToState(event);
+      else if (event is VideoDeleted)
+        yield* _mapVideoDeletedToState(event);
+      else if (event is VideosAusleihen)
+        yield* _mapVideosAusleihenToState(event);
     } catch (err) {
       logger.e(' VideosBloc mapEventToState $err');
     }
@@ -33,6 +36,15 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
       );
     } catch (error) {
       yield VideosLoadFailure();
+    }
+  }
+
+  Stream<VideosState> _mapVideosAusleihenToState(VideosAusleihen event) async* {
+    try {
+      await this.videoCenterApi.videoAusleihen(event.videoID, event.kundenID);
+      Utils.showSuccessSnackbar('Video Ausleihen');
+    } on RequestError catch (err) {
+      Utils.showErrorSnackbar(err.message);
     }
   }
 

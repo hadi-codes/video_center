@@ -94,8 +94,8 @@ class VideoCenterApi {
     try {
       await dio
           .post("/video/leihen", data: {"Fkunr": kundenID, "Fvidnr": videoID});
-    } catch (err) {
-      throw RequestError(message: "Error");
+    } on DioError catch (err) {
+      throw RequestError.fromMap(err.response.data);
     }
   }
 

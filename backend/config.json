@@ -1,0 +1,7 @@
+{  
+    "user": "root",  
+    "password": "",  
+    "server": "localhost",  
+    "port" :3306,
+    "database": "video_center"  
+    }  

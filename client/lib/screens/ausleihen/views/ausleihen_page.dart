@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gui/api/api.dart';
+import 'package:gui/screens/videos/bloc/videos.dart';
 import 'package:gui/theme/theme.dart';
 import 'package:gui/utils/locator.dart';
 import 'package:gui/utils/utils.dart';
@@ -24,7 +26,8 @@ class AusleihenPage extends StatelessWidget {
               height: 100,
               width: 150,
               child: ElevatedButton(
-                onPressed: ausleihen,
+                onPressed: () =>
+                    ausleihen(BlocProvider.of<VideosBloc>(context)),
                 child: Text(
                   'Ausleihen',
                 ),
@@ -47,7 +50,7 @@ class AusleihenPage extends StatelessWidget {
     );
   }
 
-  ausleihen() {
+  ausleihen(VideosBloc videosBloc) {
     final _formKey = GlobalKey<FormState>();
 
     String kundeID = '';
@@ -121,16 +124,9 @@ class AusleihenPage extends StatelessWidget {
             TextButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    try {
-                      locator.get<VideoCenterApi>().videoAusleihen(
-                          int.tryParse(videoID), int.tryParse(kundeID));
-                      Utils.showSuccessSnackbar("");
-                    } catch (err) {
-                      logger.e(err);
-
-                      Utils.showErrorSnackbar(err.toString());
-                    }
                     Get.back();
+                    videosBloc.add(VideosAusleihen(
+                        int.tryParse(kundeID), int.tryParse(videoID)));
                   } else
                     print('not vaild');
                 },

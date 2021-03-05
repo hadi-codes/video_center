@@ -38,7 +38,7 @@ class Utils {
 
     Get.snackbar('Error', message,
         maxWidth: 400,
-        snackStyle: SnackStyle.GROUNDED,
+        snackStyle: SnackStyle.FLOATING,
         backgroundColor: Colors.red,
         colorText: Colors.white,
         snackPosition: SnackPosition.TOP);

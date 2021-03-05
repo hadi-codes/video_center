@@ -1,13 +1,7 @@
 // DB.js config for your database  
 const mysql = require("mysql");
 
-const config = {  
-user: 'root',  
-password: '',  
-server: "localhost",  
-port :3306,
-database: "video_center"  
-}  
+const config = require('../config.json')
 
 
 
