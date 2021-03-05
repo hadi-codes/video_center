@@ -16,86 +16,93 @@ class VideosTable extends StatelessWidget {
   final List<Video> videos;
   @override
   Widget build(BuildContext context) {
-    return DataTable(
-        columns: const <DataColumn>[
-          DataColumn(
-            label: Text(
-              'Id',
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Title',
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'kategorie',
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'FSK',
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Medium',
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Jahr',
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Options',
-            ),
-          ),
-        ],
-        rows: videos
-            .map((video) => DataRow(cells: [
-                  DataCell(
-                    Text(video.pvidnr.toString()),
-                  ),
-                  DataCell(
-                    Text(video.vidtitle),
-                  ),
-                  DataCell(Text(video.vidkategorie)),
-                  DataCell(
-                    Text(video.vidfsk),
-                  ),
-                  DataCell(
-                    Text(video.vidmedium),
-                  ),
-                  DataCell(
-                    Text(video.vidjahr),
-                  ),
-                  DataCell(
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                            tooltip: 'Edit',
-                            icon: Icon(
-                              EvaIcons.editOutline,
-                              color: AppTheme.blue,
-                            ),
-                            onPressed: () => addEditVideo(
-                                true, BlocProvider.of<VideosBloc>(context),
-                                oldVideo: video)),
-                        IconButton(
-                            tooltip: 'Delete',
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => context
-                                .read<VideosBloc>()
-                                .add(VideoDeleted(video))),
-                      ],
-                    ),
-                  ),
-                ]))
-            .toList());
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        margin: EdgeInsets.all(20.0),
+        height: MediaQuery.of(context).size.height * 3 / 4,
+        child: DataTable(
+            columns: const <DataColumn>[
+              DataColumn(
+                label: Text(
+                  'Id',
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Title',
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'kategorie',
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'FSK',
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Medium',
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Jahr',
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Options',
+                ),
+              ),
+            ],
+            rows: videos
+                .map((video) => DataRow(cells: [
+                      DataCell(
+                        Text(video.pvidnr.toString()),
+                      ),
+                      DataCell(
+                        Text(video.vidtitle),
+                      ),
+                      DataCell(Text(video.vidkategorie)),
+                      DataCell(
+                        Text(video.vidfsk),
+                      ),
+                      DataCell(
+                        Text(video.vidmedium),
+                      ),
+                      DataCell(
+                        Text(video.vidjahr),
+                      ),
+                      DataCell(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                tooltip: 'Edit',
+                                icon: Icon(
+                                  EvaIcons.editOutline,
+                                  color: AppTheme.blue,
+                                ),
+                                onPressed: () => addEditVideo(
+                                    true, BlocProvider.of<VideosBloc>(context),
+                                    oldVideo: video)),
+                            IconButton(
+                                tooltip: 'Delete',
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => context
+                                    .read<VideosBloc>()
+                                    .add(VideoDeleted(video))),
+                          ],
+                        ),
+                      ),
+                    ]))
+                .toList()),
+      ),
+    );
   }
 }
 

@@ -20,10 +20,19 @@ class VideosPage extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: 15.0.h, horizontal: 5.0.w),
-            child: ElevatedButton(
-                onPressed: () =>
-                    addEditVideo(false, BlocProvider.of<VideosBloc>(context)),
-                child: Text('Neu Video')),
+            child: Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () => addEditVideo(
+                        false, BlocProvider.of<VideosBloc>(context)),
+                    child: Text('Neu Video')),
+                SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () => BlocProvider.of<VideosBloc>(context)
+                        .add(VideosRefresh()),
+                    child: Text('Refresh')),
+              ],
+            ),
           ),
           BlocBuilder<VideosBloc, VideosState>(
             builder: (context, state) {

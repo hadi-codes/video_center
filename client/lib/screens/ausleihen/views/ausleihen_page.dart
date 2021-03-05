@@ -18,33 +18,40 @@ class AusleihenPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Ausleihen'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(50),
-        child: Row(
-          children: [
-            SizedBox(
-              height: 100,
-              width: 150,
-              child: ElevatedButton(
-                onPressed: () =>
-                    ausleihen(BlocProvider.of<VideosBloc>(context)),
-                child: Text(
-                  'Ausleihen',
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 3 / 4,
+          child: Padding(
+            padding: EdgeInsets.all(50),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 100,
+                  width: 150,
+                  child: ElevatedButton(
+                    onPressed: () =>
+                        ausleihen(BlocProvider.of<VideosBloc>(context)),
+                    child: Text(
+                      'Ausleihen',
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(width: 50),
+                SizedBox(
+                  height: 100,
+                  width: 150,
+                  child: ElevatedButton(
+                    onPressed: zurckgeben,
+                    child: Text(
+                      'Zürckgeben',
+                    ),
+                  ),
+                )
+              ],
             ),
-            SizedBox(width: 50),
-            SizedBox(
-              height: 100,
-              width: 150,
-              child: ElevatedButton(
-                onPressed: zurckgeben,
-                child: Text(
-                  'Zürckgeben',
-                ),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );

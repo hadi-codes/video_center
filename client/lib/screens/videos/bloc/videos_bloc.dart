@@ -23,9 +23,15 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
         yield* _mapVideoDeletedToState(event);
       else if (event is VideosAusleihen)
         yield* _mapVideosAusleihenToState(event);
+      else if (event is VideosRefresh) yield* _mapVideosRefreshToState(event);
     } catch (err) {
       logger.e(' VideosBloc mapEventToState $err');
     }
+  }
+
+  Stream<VideosState> _mapVideosRefreshToState(VideosRefresh event) async* {
+    yield VideosLoadInProgress();
+    yield* _mapTodosLoadedToState();
   }
 
   Stream<VideosState> _mapTodosLoadedToState() async* {

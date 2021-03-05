@@ -21,6 +21,8 @@ class VideosAusleihen extends VideosEvent {
   List<Object> get props => [kundenID, videoID];
 }
 
+class VideosRefresh extends VideosEvent {}
+
 class VideoAdded extends VideosEvent {
   final Video video;
 
