@@ -24,7 +24,7 @@ Kunde.create = (neuKunde) =>
 Kunde.findByNr = (kundeNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      `SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, t_ausleihen.Fvidnr AS video FROM T_Kunde LEFT JOIN t_ausleihen ON Pkunr = fkunr LEFT JOIN t_address ON T_Kunde.Pkunr = t_address.Fkunr WHERE Pkunr = ${kundeNr}`,
+      `SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, T_Ausleihen.Fvidnr AS video FROM T_Kunde LEFT JOIN T_Ausleihen ON Pkunr = fkunr LEFT JOIN T_Address ON T_Kunde.Pkunr = T_Address.Fkunr WHERE Pkunr = ${kundeNr}`,
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -47,7 +47,7 @@ Kunde.findByNr = (kundeNr) =>
 Kunde.getAll = () =>
   new Promise((reslove, reject) => {
     sql.query(
-      "SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, t_ausleihen.Fvidnr AS video FROM `T_Kunde` LEFT JOIN t_ausleihen ON Pkunr = fkunr LEFT JOIN t_address ON T_Kunde.Pkunr = t_address.Fkunr ORDER BY `T_Kunde`.`Pkunr` ASC      ",
+      "SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, T_Ausleihen.Fvidnr AS video FROM `T_Kunde` LEFT JOIN T_Ausleihen ON Pkunr = fkunr LEFT JOIN T_Address ON T_Kunde.Pkunr = T_Address.Fkunr ORDER BY `T_Kunde`.`Pkunr` ASC      ",
       (err, res) => {
         if (err) {
           console.log("error: ", err);
