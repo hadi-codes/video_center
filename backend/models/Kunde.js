@@ -9,7 +9,7 @@ const Kunde = function (Kunde) {
 
 Kunde.create = (neuKunde) =>
   new Promise((resolve, reject) => {
-    sql.query("INSERT INTO t_kunde SET ?", neuKunde, (err, res) => {
+    sql.query("INSERT INTO T_Kunde SET ?", neuKunde, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
@@ -24,7 +24,7 @@ Kunde.create = (neuKunde) =>
 Kunde.findByNr = (kundeNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      `SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, t_ausleihen.Fvidnr AS video FROM t_kunde LEFT JOIN t_ausleihen ON Pkunr = fkunr LEFT JOIN t_address ON t_kunde.Pkunr = t_address.Fkunr WHERE Pkunr = ${kundeNr}`,
+      `SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, t_ausleihen.Fvidnr AS video FROM T_Kunde LEFT JOIN t_ausleihen ON Pkunr = fkunr LEFT JOIN t_address ON T_Kunde.Pkunr = t_address.Fkunr WHERE Pkunr = ${kundeNr}`,
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -47,14 +47,14 @@ Kunde.findByNr = (kundeNr) =>
 Kunde.getAll = () =>
   new Promise((reslove, reject) => {
     sql.query(
-      "SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, t_ausleihen.Fvidnr AS video FROM `t_kunde` LEFT JOIN t_ausleihen ON Pkunr = fkunr LEFT JOIN t_address ON t_kunde.Pkunr = t_address.Fkunr ORDER BY `t_kunde`.`Pkunr` ASC      ",
+      "SELECT Pkunr, kuvorname, kunachname, kugeburtsdatum, addstrasse, addplz, addort, t_ausleihen.Fvidnr AS video FROM `T_Kunde` LEFT JOIN t_ausleihen ON Pkunr = fkunr LEFT JOIN t_address ON T_Kunde.Pkunr = t_address.Fkunr ORDER BY `T_Kunde`.`Pkunr` ASC      ",
       (err, res) => {
         if (err) {
           console.log("error: ", err);
           reject(err);
           return;
         }
-        console.log("t_kunde: ", res);
+        console.log("T_Kunde: ", res);
 
         let kunden = [];
         let lastEntrie = { Pkunr: null };
@@ -89,7 +89,7 @@ Kunde.updateByNr = async (pkunr, Kunde) =>
     // }
     // valus.push(pkunr);
     sql.query(
-      "UPDATE t_kunde SET kuvorname = ?, kunachname = ?, kugeburtsdatum = ? WHERE pkunr = ?",
+      "UPDATE T_Kunde SET kuvorname = ?, kunachname = ?, kugeburtsdatum = ? WHERE pkunr = ?",
       [Kunde.kuvorname, Kunde.kunachname, Kunde.kugeburtsdatum, pkunr],
       (err, res) => {
         if (err) {
@@ -112,7 +112,7 @@ Kunde.updateByNr = async (pkunr, Kunde) =>
 
 Kunde.remove = (pkunr) =>
   new Promise((resolve, reject) => {
-    sql.query("DELETE FROM t_kunde WHERE pkunr = ?", pkunr, (err, res) => {
+    sql.query("DELETE FROM T_Kunde WHERE pkunr = ?", pkunr, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);

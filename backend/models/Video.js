@@ -12,7 +12,7 @@ const Video = function (Video) {
 
 Video.create = (neuVideo) =>
   new Promise((resolve, reject) => {
-    sql.query("INSERT INTO t_video SET ?", neuVideo, (err, res) => {
+    sql.query("INSERT INTO T_Video SET ?", neuVideo, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
@@ -26,7 +26,7 @@ Video.create = (neuVideo) =>
 
 Video.findByNr = (videoNr) =>
   new Promise((resolve, reject) => {
-    sql.query(`SELECT * FROM t_video WHERE Pvidnr = ${videoNr}`, (err, res) => {
+    sql.query(`SELECT * FROM T_Video WHERE Pvidnr = ${videoNr}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
@@ -46,14 +46,14 @@ Video.findByNr = (videoNr) =>
 
 Video.getAll = () =>
   new Promise((reslove, reject) => {
-    sql.query("SELECT * FROM t_video", (err, res) => {
+    sql.query("SELECT * FROM T_Video", (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
         return;
       }
 
-      console.log("t_video: ", res);
+      console.log("T_Video: ", res);
       reslove(res);
     });
   });
@@ -61,7 +61,7 @@ Video.getAll = () =>
 Video.updateByNr = async (Pvidnr, Video) =>
   new Promise(async (reslove, reject) => {
       sql.query(
-        "UPDATE t_video SET vidtitle = ?, vidmedium = ?, vidkategorie = ? , vidfsk = ? ,vidjahr = ?  WHERE Pvidnr = ?",
+        "UPDATE T_Video SET vidtitle = ?, vidmedium = ?, vidkategorie = ? , vidfsk = ? ,vidjahr = ?  WHERE Pvidnr = ?",
         [
           Video.vidtitle,
           Video.vidmedium,
@@ -91,7 +91,7 @@ Video.updateByNr = async (Pvidnr, Video) =>
 
 Video.remove = (pvidnr) =>
   new Promise((resolve, reject) => {
-    sql.query("DELETE FROM t_video WHERE Pvidnr = ?", pvidnr, (err, res) => {
+    sql.query("DELETE FROM T_Video WHERE Pvidnr = ?", pvidnr, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
@@ -114,7 +114,7 @@ Video.remove = (pvidnr) =>
 Video.leihen = (kundeNr, videoNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      "INSERT INTO t_ausleihen SET ?",
+      "INSERT INTO T_Ausleihen SET ?",
       { Fkunr: kundeNr, Fvidnr: videoNr },
       (err, res) => {
         if (err) {
@@ -132,7 +132,7 @@ Video.leihen = (kundeNr, videoNr) =>
 Video.returnByVideoNr = (videoNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      "DELETE FROM t_ausleihen WHERE Fvidnr = ?",
+      "DELETE FROM T_Ausleihen WHERE Fvidnr = ?",
       videoNr,
       (err, res) => {
         if (err) {
@@ -155,7 +155,7 @@ Video.returnByVideoNr = (videoNr) =>
 Video.returnByKundeNr = (kundeNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      "DELETE FROM t_ausleihen WHERE Fkunr = ?",
+      "DELETE FROM T_Ausleihen WHERE Fkunr = ?",
       kundeNr,
       (err, res) => {
         if (err) {
@@ -179,7 +179,7 @@ Video.returnByKundeNr = (kundeNr) =>
 Video.findRentedVideo = (videoNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      `SELECT * FROM t_ausleihen WHERE Fvidnr = ${videoNr}`,
+      `SELECT * FROM T_Ausleihen WHERE Fvidnr = ${videoNr}`,
       (err, res) => {
         if (err) {
           console.log("error: ", err);

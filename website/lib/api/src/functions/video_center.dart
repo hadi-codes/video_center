@@ -1,11 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:gui/api/api.dart';
-import 'package:gui/utils/global/global.dart';
 
 class VideoCenterApi {
-  Dio dio = Dio(BaseOptions(
-      baseUrl: kIsWeb ? 'http://localhost:3000' : 'http://10.0.2.2:3000'));
+  Dio dio = Dio(BaseOptions(baseUrl: 'http://104.248.253.88:3000'));
 
   Future<List<Kunde>> getAllKunden() async {
     try {

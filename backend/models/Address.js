@@ -11,7 +11,7 @@ const Address = function (Address) {
 Address.create = (newAddress) =>
   new Promise((resolve, reject) => {
     console.log(newAddress);
-    sql.query("INSERT INTO t_address SET ?", newAddress, (err, res) => {
+    sql.query("INSERT INTO T_Address SET ?", newAddress, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
@@ -26,7 +26,7 @@ Address.create = (newAddress) =>
 Address.findByNr = (kundeNr) =>
   new Promise((resolve, reject) => {
     sql.query(
-      `SELECT * FROM t_address WHERE Fkunr = ${kundeNr}`,
+      `SELECT * FROM T_Address WHERE Fkunr = ${kundeNr}`,
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -48,14 +48,14 @@ Address.findByNr = (kundeNr) =>
 
 Address.getAll = () =>
   new Promise((resolve, reject) => {
-    sql.query("SELECT * FROM t_address", (err, res) => {
+    sql.query("SELECT * FROM T_Address", (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
         return;
       }
 
-      console.log("t_address: ", res);
+      console.log("T_Address: ", res);
       resolve(res);
     });
   });
@@ -63,7 +63,7 @@ Address.getAll = () =>
 Address.updateByNr = (pkunr, Address) =>
   new Promise((reslove, reject) => {
     sql.query(
-      "UPDATE t_address SET addort = ?, addplz = ?, addstrasse = ? WHERE Fkunr = ?",
+      "UPDATE T_Address SET addort = ?, addplz = ?, addstrasse = ? WHERE Fkunr = ?",
 
       [Address.addort, Address.addplz, Address.addstrasse, pkunr],
       (err, res) => {
@@ -87,7 +87,7 @@ Address.updateByNr = (pkunr, Address) =>
 
 Address.remove = (Fkunr) =>
   new Promise((resolve, reject) => {
-    sql.query("DELETE FROM t_address WHERE Fkunr = ?", Fkunr, (err, res) => {
+    sql.query("DELETE FROM T_Address WHERE Fkunr = ?", Fkunr, (err, res) => {
       if (err) {
         console.log("error: ", err);
         reject(err);
