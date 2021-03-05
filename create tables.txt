@@ -1,0 +1,39 @@
+CREATE TABLE IF NOT EXISTS `T_Kunde`(
+    `Pkunr` INT NOT NULL AUTO_INCREMENT,
+    `kuvorname` VARCHAR(255) NOT NULL,
+    `kunachname` VARCHAR(255) NOT NULL,
+    `kugeburtsdatum` DATE NOT NULL,
+    PRIMARY KEY(`Pkunr`)
+) AUTO_INCREMENT = 1000; 
+
+CREATE TABLE IF NOT EXISTS `T_Video`(
+    `Pvidnr` INT NOT NULL AUTO_INCREMENT,
+    `vidtitle` VARCHAR(255),
+    `vidmedium` VARCHAR(255),
+    `vidkategorie` VARCHAR(255),
+    `vidfsk` VARCHAR(255),
+    `vidimg` VARCHAR(255),
+    `vidjahr` YEAR,
+    PRIMARY KEY(`Pvidnr`)
+) AUTO_INCREMENT = 10000;
+ 
+CREATE TABLE IF NOT EXISTS `T_Address`(
+    `Fkunr` INT NOT NULL UNIQUE,
+    `addstrasse` VARCHAR(255) NOT NULL,
+    `addplz` VARCHAR(5) NOT NULL,
+    `addort` VARCHAR(255) NOT NULL,
+    FOREIGN KEY(Fkunr) REFERENCES t_kunde(pkunr)
+); 
+
+
+CREATE TABLE IF NOT EXISTS `T_Ausleihen`(
+    `Fkunr` INT NOT NULL,
+    `Fvidnr` INT NOT NULL UNIQUE,
+    `leihdatum` TIMESTAMP NOT NULL,
+    FOREIGN KEY(Fkunr) REFERENCES t_kunde(pkunr),
+    FOREIGN KEY(Fvidnr) REFERENCES t_video(pvidnr)
+);
+
+
+
+
